@@ -8,25 +8,17 @@
 #  ███████╗██║██║        ██║   ██████╔╝██║  ██║███████╗██║  ██║██║  ██╗
 #  ╚══════╝╚═╝╚═╝        ╚═╝   ╚═════╝ ╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝
 #                                                         By: LawlietJH
-#																v1.0.7
+#																v1.1.0
 
 from time import time
-import optparse
 import zipfile
+import locale
 import sys
 import os
-import locale
 
 
 Autor = "LawlietJH"
-Version = "v1.0.7"
-
-
-
-parser = optparse.OptionParser()
-parser.add_option('-A', '--Archivo', 	 action="store", dest="Archivo", 	 help="Ruta\Nombre del Archivo ZIP",	default=None)
-parser.add_option('-D', '--Diccionario', action="store", dest="Diccionario", help="Ruta\Nombre del Diccionario",	default=None)
-options, args = parser.parse_args()
+Version = "v1.1.0"
 
 
 
@@ -43,7 +35,8 @@ BZB = u"""
 BA = u"""
                             ╦  ┌─┐┬ ┬┬  ┬┌─┐┌┬┐╦╦ ╦
                             ║  ├─┤││││  │├┤  │ ║╠═╣
-                            ╩═╝┴ ┴└┴┘┴─┘┴└─┘ ┴╚╝╩ ╩"""
+                            ╩═╝┴ ┴└┴┘┴─┘┴└─┘ ┴╚╝╩ ╩
+"""
 #~ Fuente: 'Calvin S' - Página: http://patorjk.com/software/taag/#p=display&f=Calvin%20S&t=LawlietJH
 
 
@@ -61,20 +54,71 @@ def Dat():	# Imprime Los Banners.
 
 
 
-def Modo_de_Uso():
-	
-	print """
-	
-Modo de Uso: ZipyBreak.py [-A Nomb.zip][-D Diccionario.txt] | [-h|--help]
+Modo_De_Uso = """ [+] Modo De Uso: ZipyBreak.py [-A Arch.zip][-D Dic.txt] | [-h|--help]
+
+
 
   -h, --help            Muestra este Mensaje y Sale del Script.
-  
-  -A, --Archivo         Ruta\Nombre del Archivo ZIP
-                        
-  -D, --Diccionario     Ruta\Nombre del Diccionario
 
-	"""
+  -v, --version         Muestra los Banners y Sale del Script.
+ 
+  -A, --Archivo         Ruta\Nombre del Archivo ZIP A Usar.
 
+  -D, --Diccionario     Ruta\Nombre del Diccionario A Usar.
+
+
+"""
+
+Archivo = ""
+Diccionario = ""
+
+
+
+#=======================================================================
+
+
+
+def Args():
+	
+	global Archivo, Diccionario
+	
+	#~ Argumentos que puede leer el Script.
+	if len(sys.argv) == 5:
+			
+		if  (sys.argv[1] == "-D" or sys.argv[1] == "--Diccionario")\
+		and (sys.argv[3] == "-A" or sys.argv[3] == "--Archivo"):
+			
+			Diccionario = sys.argv[2]
+			Archivo = sys.argv[4]
+			
+			return True
+		
+		elif (sys.argv[1] == "-A" or sys.argv[1] == "--Archivo")\
+		and  (sys.argv[3] == "-D" or sys.argv[3] == "--Diccionario"):
+			
+			Archivo = sys.argv[2]
+			Diccionario = sys.argv[4]
+			
+			return True
+		
+		else: return False
+	elif len(sys.argv) == 2:
+		
+		if sys.argv[1] == "-v" or sys.argv[1] == "--version":
+			
+			os.system("Cls")
+			print "\n\n\n"
+			Dat()
+			print "\n\n"
+			sys.exit(0)
+			
+		if sys.argv[1] == "-h" or sys.argv[1] == "--help":
+			
+			print "\n\n"
+			print Modo_De_Uso
+			sys.exit(0)
+				
+	else: return False
 
 
 
@@ -101,19 +145,32 @@ def Tiempo(sec):	# Imprime El Tiempo Restante.
 
 
 
-def main(A, D):
+#=======================================================================
+
+
+
+def main():
 	
-	try: ZIP = zipfile.ZipFile(A)
+	A = Archivo
+	D = Diccionario
+	
+	try:
 		
-	except zipfile.BadZipfile:
+		ZIP = zipfile.ZipFile(A)
+	
+	except IOError:
 		
-		print "Por favor, compruebe la ruta del archivo. No parece ser un archivo ZIP."
+		if not Archivo.lower().endswith(".zip"): print "\n\n\t [!] El Archivo " + Archivo + u" No tiene extensión .zip.\n\n"
+		else: print "\n\n\t [!] Por favor, compruebe el nombre o ruta del archivo.\n\n"
+		print Modo_De_Uso
 		quit()
 		
 	except KeyboardInterrupt:
 		
 		print "\n\n\t [!] Cancelado!"
 		quit()
+	
+	print "\n\n\n"
 	
 	Pwd = None
 	Cont = 0 
@@ -137,8 +194,8 @@ def main(A, D):
 					Tiempo_Total = Tiempo(TiempoF)
 					ZIP.extractall(pwd=Pwd)
 
-					print "\n\n\n\t [+] Password Descifrado: {}".format(Pwd) 
-					print u"\n\n\t [+] Tomó {} para descifrar el Password.\n\n".format(Tiempo_Total) 
+					print u"\n\n\n\t [+] Password Descifrado: {}".format(Pwd) 
+					print u"\n\n\t [+] Tomó {} para descifrar el Password.\n\n\n".format(Tiempo_Total) 
 					quit()
 					
 				except Exception:
@@ -164,19 +221,22 @@ def main(A, D):
 
 
 
+#=======================================================================
+
+
+
 if __name__ == '__main__':
 	
 	os.system("Cls")
 	
 	print("\n\n\n")
 	Dat()
-	print("\n\n\n")
 	
-	locale.setlocale(locale.LC_ALL, 'esp')
-	if options.Archivo == None and options.Diccionario == None:
-		
-		Modo_de_Uso()
-		
-	main(options.Archivo, options.Diccionario)
+	#~ locale.setlocale(locale.LC_ALL, 'esp')
+	
+	if Args(): main()
+	else:
+		print "\n\n\t [!] Faltan Argumentos."
+		print "\n\n" + Modo_De_Uso
 
 
