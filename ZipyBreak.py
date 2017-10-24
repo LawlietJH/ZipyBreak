@@ -8,7 +8,7 @@
 #  ███████╗██║██║        ██║   ██████╔╝██║  ██║███████╗██║  ██║██║  ██╗
 #  ╚══════╝╚═╝╚═╝        ╚═╝   ╚═════╝ ╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝
 #                                                         By: LawlietJH
-#																v1.1.0
+#																v1.1.1
 
 from time import time
 import zipfile
@@ -18,7 +18,7 @@ import os
 
 
 Autor = "LawlietJH"
-Version = "v1.1.0"
+Version = "v1.1.1"
 
 
 
@@ -126,7 +126,7 @@ def Args():
 
 
 
-def Tiempo(sec):	# Imprime El Tiempo Restante.
+def Tiempo(sec):	# Convierte El Tiempo.
 	
 	sec = int(sec)
 	
@@ -195,7 +195,8 @@ def main():
 					ZIP.extractall(pwd=Pwd)
 
 					print u"\n\n\n\t [+] Password Descifrado: {}".format(Pwd) 
-					print u"\n\n\t [+] Tomó {} para descifrar el Password.\n\n\n".format(Tiempo_Total) 
+					print u"\n\n\t [+] Tomó {} para descifrar el Password.".format(Tiempo_Total)
+					print u"\n\n\t [+] Con {} Palabras Probadas.\n\n\n".format(Cont) 
 					quit()
 					
 				except Exception:
