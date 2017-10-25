@@ -8,7 +8,7 @@
 #  ███████╗██║██║        ██║   ██████╔╝██║  ██║███████╗██║  ██║██║  ██╗
 #  ╚══════╝╚═╝╚═╝        ╚═╝   ╚═════╝ ╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝
 #                                                         By: LawlietJH
-#                                                               v1.2.0
+#                                                               v1.2.4
 
 from time import time
 import zipfile
@@ -19,7 +19,7 @@ import os
 
 
 Autor = "LawlietJH"
-Version = "v1.2.0"
+Version = "v1.2.4"
 
 
 
@@ -62,7 +62,6 @@ def Dat():	# Imprime Los Banners.
 Modo_De_Uso = """ [+] Modo De Uso:\n\n\n ZipyBreak.py [-A Arch.zip][-C "0-9" | -h ][-L 4] [-D Dic.txt] | [-h|--help]
 
 
-
   -h, --help            Muestra este Mensaje y Sale del Script.
   
   -v, --version         Muestra los Banners y Sale del Script.
@@ -80,7 +79,7 @@ Modo_De_Uso = """ [+] Modo De Uso:\n\n\n ZipyBreak.py [-A Arch.zip][-C "0-9" | -
     
 
 """\
-+ u"    ZipyBreak.py -C -h     Mostrará las opciones para el Charset."
++ u"    ZipyBreak.py -C -h     Mostrará las opciones para el Charset.\n\n"
 
 
 
@@ -97,6 +96,24 @@ Eny = []
 
 
 #=======================================================================
+
+
+
+def EliminaRepetidas(Keys):
+	
+	Alf = ""
+	
+	for y in Keys:	# Eliminamos Letras Repetidas. Asi Evitamos Las Cadenas Repetidas.
+		
+		if not y in Alf: Alf += y
+	
+	if len(Alf) > 70:
+		print("\n\n [!] Es Una Locura Viejo!!! Hay Más de 1 Cuatrillon De Posibilidades!!!"+
+		"\n\n\t Algo así como: 1'000,000'000,000'000,000'000,000"+
+		"\t\t\t  Trillon  Billon  Millon  Miles")
+		sys.exit(0)
+		
+	return Alf
 
 
 
@@ -195,7 +212,7 @@ def Combin(L, C):	# Función Que Crea Las Cadenas Con Caracteres Desde 1 Hasta L
 					_3 = _2 + _3; Eny.append(_3)
 					for _4 in C:
 						_4 = _3 + _4; Eny.append(_4)
-						for _5 in C: _5 = _4 + _3; Eny.append(_5)
+						for _5 in C: _5 = _4 + _5; Eny.append(_5)
 				
 	elif L == 6:
 		
@@ -208,8 +225,24 @@ def Combin(L, C):	# Función Que Crea Las Cadenas Con Caracteres Desde 1 Hasta L
 					for _4 in C:
 						_4 = _3 + _4; Eny.append(_4)
 						for _5 in C:
-							_5 = _4 + _3; Eny.append(_5)
-							for _6 in C: _6 = _5 + _4; Eny.append(_6)
+							_5 = _4 + _5; Eny.append(_5)
+							for _6 in C: _6 = _5 + _6; Eny.append(_6)
+				
+	elif L == 7:
+		
+		for _1 in C:
+			Eny.append(_1)
+			for _2 in C:
+				_2 = _1 + _2; Eny.append(_2)
+				for _3 in C:
+					_3 = _2 + _3; Eny.append(_3)
+					for _4 in C:
+						_4 = _3 + _4; Eny.append(_4)
+						for _5 in C:
+							_5 = _4 + _5; Eny.append(_5)
+							for _6 in C:
+								_6 = _5 + _6; Eny.append(_6)
+								for _7 in C: _7 = _6 + _7; Eny.append(_7)
 
 
 
@@ -240,6 +273,12 @@ def Args():
 			Charset  = sys.argv[4]
 			Longitud = sys.argv[6]
 			
+			if int(Longitud) > 7:
+				
+				print u"\n\n\t [!] Elige Un Número Entre 1-7 Para La Longitud.\n\n"
+				print Modo_De_Uso
+				sys.exit(0)
+			
 			return True
 		
 		# ZipyBreak.py -A Arch.zip -L Número -C Caracteres
@@ -255,6 +294,12 @@ def Args():
 			Archivo  = sys.argv[2]
 			Longitud = sys.argv[4]
 			Charset  = sys.argv[6]
+			
+			if int(Longitud) > 7:
+				
+				print u"\n\n\t [!] Elige Un Número Entre 1-7 Para La Longitud.\n\n"
+				print Modo_De_Uso
+				sys.exit(0)
 			
 			return True
 		
@@ -272,6 +317,12 @@ def Args():
 			Longitud = sys.argv[4]
 			Archivo  = sys.argv[6]
 			
+			if int(Longitud) > 7:
+				
+				print u"\n\n\t [!] Elige Un Número Entre 1-7 Para La Longitud.\n\n"
+				print Modo_De_Uso
+				sys.exit(0)
+			
 			return True
 		
 		# ZipyBreak.py -C Caracteres -A Arch.zip -L Número
@@ -287,6 +338,12 @@ def Args():
 			Charset  = sys.argv[2]
 			Archivo  = sys.argv[4]
 			Longitud = sys.argv[6]
+			
+			if int(Longitud) > 7:
+				
+				print u"\n\n\t [!] Elige Un Número Entre 1-7 Para La Longitud.\n\n"
+				print Modo_De_Uso
+				sys.exit(0)
 			
 			return True
 		
@@ -304,6 +361,12 @@ def Args():
 			Archivo  = sys.argv[4]
 			Charset  = sys.argv[6]
 			
+			if int(Longitud) > 7:
+				
+				print u"\n\n\t [!] Elige Un Número Entre 1-7 Para La Longitud.\n\n"
+				print Modo_De_Uso
+				sys.exit(0)
+			
 			return True
 		
 		# ZipyBreak.py -L Número -C Caracteres -A Arch.zip
@@ -319,6 +382,12 @@ def Args():
 			Longitud = sys.argv[2]
 			Charset  = sys.argv[4]
 			Archivo  = sys.argv[6]
+			
+			if int(Longitud) > 7:
+				
+				print u"\n\n\t [!] Elige Un Número Entre 1-7 Para La Longitud.\n\n"
+				print Modo_De_Uso
+				sys.exit(0)
 			
 			return True
 		
@@ -500,15 +569,15 @@ def main():
 		else:
 			
 			C = KeyGen(C)
-			
+			C = EliminaRepetidas(C)
 			Combin(L, C)
-				
+			
 			for Palabra in Eny:
 
 				#~ print(Palabra)
 				
 				Cont += 1
-				Pwd = Palabra.split("\n")[0]
+				Pwd = Palabra
 				
 				try:
 					TiempoF = time() - TiempoI
