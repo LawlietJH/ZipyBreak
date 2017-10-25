@@ -8,7 +8,7 @@
 #  ███████╗██║██║        ██║   ██████╔╝██║  ██║███████╗██║  ██║██║  ██╗
 #  ╚══════╝╚═╝╚═╝        ╚═╝   ╚═════╝ ╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝
 #                                                         By: LawlietJH
-#                                                               v1.2.5
+#                                                               v1.2.7
 
 from time import time
 import zipfile
@@ -19,7 +19,7 @@ import os
 
 
 Autor = "LawlietJH"
-Version = "v1.2.5"
+Version = "v1.2.7"
 
 
 
@@ -476,13 +476,39 @@ def Tiempo(sec):	# Convierte El Tiempo.
 	dias = hors/24
 	
 	if sec >= 86400:  # Convierte a Dias
-		return "{:d} Dia(s) {:d} hora(s) {:d} minuto(s) {:d} segundo(s)".format(dias, hors%24, mins%60, secs%60)
+		
+		if   hors <  10 and mins%60 <  10 and secs%60 <  10:	return "{:d} D 0{:d}:0{:d}:0{:d} hora(s)".format(dias, hors%24, mins%60, secs%60)
+		elif hors <  10 and mins%60 <  10 and secs%60 >= 10:	return "{:d} D 0{:d}:0{:d}:{:d} hora(s)".format(dias, hors%24, mins%60, secs%60)
+		elif hors <  10 and mins%60 >= 10 and secs%60 <  10:	return "{:d} D 0{:d}:{:d}:0{:d} hora(s)".format(dias, hors%24, mins%60, secs%60)
+		elif hors <  10 and mins%60 >= 10 and secs%60 >= 10:	return "{:d} D 0{:d}:{:d}:{:d} hora(s)".format(dias, hors%24, mins%60, secs%60)
+		elif hors >= 10 and mins%60 <  10 and secs%60 <  10:	return "{:d} D {:d}:0{:d}:0{:d} hora(s)".format(dias, hors%24, mins%60, secs%60)
+		elif hors >= 10 and mins%60 <  10 and secs%60 >= 10:	return "{:d} D {:d}:0{:d}:{:d} hora(s)".format(dias, hors%24, mins%60, secs%60)
+		elif hors >= 10 and mins%60 >= 10 and secs%60 <  10:	return "{:d} D {:d}:{:d}:0{:d} hora(s)".format(dias, hors%24, mins%60, secs%60)
+		elif hors >= 10 and mins%60 >= 10 and secs%60 >= 10:	return "{:d} D {:d}:{:d}:{:d} hora(s)".format(dias, hors%24, mins%60, secs%60)
+		
+		return "{:d} Dia(s) {:d}:{:d}:{:d} horas(s)".format(dias, hors%24, mins%60, secs%60)
 	elif sec >= 3600:  # Convierte a Horas
-		return "{:d} hora(s) {:d} minuto(s) {:d} segundo(s)".format(hors, mins%24, secs%60)
+		
+		if   hors <  10 and mins%60 <  10 and secs%60 <  10:	return "0{:d}:0{:d}:0{:d} hora(s)".format(hors, mins%60, secs%60)
+		elif hors <  10 and mins%60 <  10 and secs%60 >= 10:	return "0{:d}:0{:d}:{:d} hora(s)".format(hors, mins%60, secs%60)
+		elif hors <  10 and mins%60 >= 10 and secs%60 <  10:	return "0{:d}:{:d}:0{:d} hora(s)".format(hors, mins%60, secs%60)
+		elif hors <  10 and mins%60 >= 10 and secs%60 >= 10:	return "0{:d}:{:d}:{:d} hora(s)".format(hors, mins%60, secs%60)
+		elif hors >= 10 and mins%60 <  10 and secs%60 <  10:	return "{:d}:0{:d}:0{:d} hora(s)".format(hors, mins%60, secs%60)
+		elif hors >= 10 and mins%60 <  10 and secs%60 >= 10:	return "{:d}:0{:d}:{:d} hora(s)".format(hors, mins%60, secs%60)
+		elif hors >= 10 and mins%60 >= 10 and secs%60 <  10:	return "{:d}:{:d}:0{:d} hora(s)".format(hors, mins%60, secs%60)
+		elif hors >= 10 and mins%60 >= 10 and secs%60 >= 10:	return "{:d}:{:d}:{:d} hora(s)".format(hors, mins%60, secs%60)
+		
 	elif sec >= 60:  # Convierte a Minutos
-		return "{:d} minuto(s) {:d} segundo(s)".format(mins, secs%60)
+		
+		if   mins <  10 and secs%60 <  10:	return "0{:d}:0{:d} minuto(s)".format(mins, secs%60)
+		elif mins <  10 and secs%60 >= 10:	return "0{:d}:{:d} minuto(s)".format(mins, secs%60)
+		elif mins >= 10 and secs%60 <  10:	return "{:d}:0{:d} minuto(s)".format(mins, secs%60)
+		elif mins >= 10 and secs%60 >= 10:	return "{:d}:{:d} minuto(s)".format(mins, secs%60)
+		
 	else:            # Sin Conversión
-		return "{:d} segundo(s)".format(secs)
+		
+		if secs < 10: return "0{:d} segundo(s)".format(secs)
+		else: return "{:d} segundo(s)".format(secs)
 
 
 
@@ -496,9 +522,21 @@ def main():
 	
 	Eny = []
 	A = Archivo
-	C = Charset
+	C = KeyGen(Charset)
+	C = EliminaRepetidas(C)
 	D = Diccionario
 	L = int(Longitud)
+	
+	print "\n\n\n"
+	
+	sys.stdout.writelines("\r Generando Palabras...")
+	Combin(L, C)
+	sys.stdout.writelines("\r Generando Palabras... HECHO!")
+	
+	#{ Genera Una Pausa de 1 Segundo.
+	z = time()
+	while z != (time() - 1): pass
+	#}
 	
 	try:
 		
@@ -516,7 +554,6 @@ def main():
 		print "\n\n\t [!] Cancelado!"
 		sys.exit(0)
 	
-	print "\n\n\n"
 	
 	Pwd = None
 	Cont = 0 
@@ -540,36 +577,36 @@ def main():
 					try:
 						TiempoF = time() - TiempoI
 						Tiempo_Total = Tiempo(TiempoF)
+						
+						if Cont % 300 == 0:
+							
+							if len(Pwd) < 8:
+								sys.stdout.writelines("\r  [+] Probando: " + Pwd + "\t\t[~] " + str(int(Cont/TiempoF)) + " Palabras/s. En: " + str(Tiempo_Total))
+							elif len(Pwd) >= 8 or len(Pwd) < 16:
+								sys.stdout.writelines("\r  [+] Probando: " + Pwd + "\t[~] " + str(int(Cont/TiempoF)) + " Palabras/s. En: " + str(Tiempo_Total))
+						
 						ZIP.extractall(pwd=Pwd)
 						
-						sys.stdout.writelines("\r  [+] Probando: " + Pwd + "\t\t[~] " + str(int(Cont/TiempoF)) + " Palabras/s. ")
+						sys.stdout.writelines("\r  [+] Probando: " + Pwd + "\t\t[~] " + str(int(Cont/TiempoF)) + " Palabras/s. En: " + str(Tiempo_Total))
 						
 						print u"\n\n\n\t [+] Password Descifrado: {}".format(Pwd) 
-						print u"\n\n\t [+] Tomó {} para descifrar el Password.".format(Tiempo_Total)
+						#~ print u"\n\n\t [+] Tomó {} para descifrar el Password.".format(Tiempo_Total)
 						print u"\n\n\t [+] Con {} Palabras Probadas.\n\n\n".format(Cont) 
 						sys.exit(0)
 						
 					except Exception:
 						
-						if Cont % 250 == 0:
-							
-							if len(Pwd) < 8:
-								sys.stdout.writelines("\r  [+] Probando: " + Pwd + "\t\t[~] " + str(int(Cont/TiempoF)) + " Palabras/s. ")
-							elif len(Pwd) >= 8 or len(Pwd) < 16:
-								sys.stdout.writelines("\r  [+] Probando: " + Pwd + "\t[~] " + str(int(Cont/TiempoF)) + " Palabras/s. ")
-					
+						pass
+						
 					except KeyboardInterrupt:
 						
 						print "\n\n\t [!] Cancelado!"
 						sys.exit(0)
 						
-				print "\n\n\t [!] Password No Encontrada." 
+				print "\n\n\n\t [!] Password No Encontrada."
+				print u"\n\n\t [+] Con {} Palabras Probadas.\n\n\n".format(Cont) 
 		
 		else:
-			
-			C = KeyGen(C)
-			C = EliminaRepetidas(C)
-			Combin(L, C)
 			
 			for Palabra in Eny:
 
@@ -581,30 +618,31 @@ def main():
 				try:
 					TiempoF = time() - TiempoI
 					Tiempo_Total = Tiempo(TiempoF)
-					ZIP.extractall(pwd=Pwd)
-					
-					sys.stdout.writelines("\r  [+] Probando: " + Pwd + "\t\t[~] " + str(int(Cont/TiempoF)) + " Palabras/s. ")
 						
-					print u"\n\n\n\t [+] Password Descifrado: {}".format(Pwd) 
-					print u"\n\n\t [+] Tomó {} para descifrar el Password.".format(Tiempo_Total)
-					print u"\n\n\t [+] Con {} Palabras Probadas.\n\n\n".format(Cont) 
-					sys.exit(0)
-					
-				except Exception:
-					
 					if Cont % 300 == 0:
 						
 						if len(Pwd) < 8:
-							sys.stdout.writelines("\r  [+] Probando: " + Pwd + "\t\t[~] " + str(int(Cont/TiempoF)) + " Palabras/s. ")
+							sys.stdout.writelines("\r  [+] Probando: " + Pwd + "\t\t[~] " + str(int(Cont/TiempoF)) + " Palabras/s. En: " + str(Tiempo_Total))
 						elif len(Pwd) >= 8 or len(Pwd) < 16:
-							sys.stdout.writelines("\r  [+] Probando: " + Pwd + "\t[~] " + str(int(Cont/TiempoF)) + " Palabras/s. ")
+							sys.stdout.writelines("\r  [+] Probando: " + Pwd + "\t[~] " + str(int(Cont/TiempoF)) + " Palabras/s. En: " + str(Tiempo_Total))
+					
+					ZIP.extractall(pwd=Pwd)
+					
+					sys.stdout.writelines("\r  [+] Probando: " + Pwd + "\t\t[~] " + str(int(Cont/TiempoF)) + " Palabras/s. En: " + str(Tiempo_Total))
+						
+					print u"\n\n\n\t [+] Password Descifrado: {}".format(Pwd) 
+					print u"\n\n\t [+] Con {} Palabras Probadas.\n\n\n".format(Cont) 
+					sys.exit(0)
+					
+				except Exception: pass
 				
 				except KeyboardInterrupt:
 					
 					print "\n\n\t [!] Cancelado!"
 					sys.exit(0)
 					
-			print "\n\n\t [!] Password No Encontrada." 
+			print "\n\n\n\t [!] Password No Encontrada."
+			print u"\n\n\t [+] Con {} Palabras Probadas.\n\n\n".format(Cont) 
 			
 	except KeyboardInterrupt:
 		
