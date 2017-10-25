@@ -15,24 +15,26 @@
  __ZipyBreak.py [-A Arch.zip][-C "0-9" | -h ][-L 4] [-D Dic.txt] | [-h|--help]__
 
 
-  __-h, --help            Muestra este Mensaje y Sale del Script.__
+  __-h, --help            _Muestra este Mensaje y Sale del Script.___
 
-  __-v, --version         Muestra los Banners y Sale del Script.__
+  __-v, --version         _Muestra los Banners y Sale del Script.___
 
-  __-A, --Archivo         Ruta\Nombre del Archivo ZIP A Usar.__
+  __-A, --Archivo         _Ruta\Nombre del Archivo ZIP A Usar.___
 
-  __-C, --Charset         Caracteres a Utilizar Para El Ataque.__
+  __-C, --Charset         _Caracteres a Utilizar Para El Ataque.___
 
-  __-L, --Longitud        Longitud Máxima de Caracteres a Utilizar.__
+  __-L, --Longitud        _Longitud Máxima de Caracteres a Utilizar.___
 
-  __-D, --Diccionario     Ruta\Nombre del Diccionario A Usar.__
+  __-D, --Diccionario     _Ruta\Nombre del Diccionario A Usar.___
 
 
    __Ejemplos:__
 
-   __ZipyBreak.py -C -h     Mostrará las opciones para el Charset.__
+   __ZipyBreak.py -C -h     _Mostrará las opciones para el Charset.___
 
-   __ZipyBreak.py -A Arch.zip -C "a-z" -L 4.__
+   __ZipyBreak.py -A Arch.zip -C "a-z" -L 4__
+   
+   __ZipyBreak.py -A Arch.zip -D Diccionario.txt__
 
 ---
 
@@ -40,7 +42,7 @@
 
  __[+] Ejemplo:   ZipyBreak.py -A Arch.zip -C "0-9" -L 4__
 
-   __Usará Caracteres Númericos desde 1 hasta 4 de Longitud.__
+   ___Usará Caracteres Númericos desde 1 hasta 4 de Longitud.___
 
    __======================================================================__
 
