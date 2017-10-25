@@ -8,7 +8,7 @@
 #  ███████╗██║██║        ██║   ██████╔╝██║  ██║███████╗██║  ██║██║  ██╗
 #  ╚══════╝╚═╝╚═╝        ╚═╝   ╚═════╝ ╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝
 #                                                         By: LawlietJH
-#                                                               v1.2.4
+#                                                               v1.2.5
 
 from time import time
 import zipfile
@@ -19,7 +19,7 @@ import os
 
 
 Autor = "LawlietJH"
-Version = "v1.2.4"
+Version = "v1.2.5"
 
 
 
@@ -77,9 +77,9 @@ Modo_De_Uso = """ [+] Modo De Uso:\n\n\n ZipyBreak.py [-A Arch.zip][-C "0-9" | -
 
     Ejemplos:
     
-
 """\
-+ u"    ZipyBreak.py -C -h     Mostrará las opciones para el Charset.\n\n"
++ u"    ZipyBreak.py -C -h     Mostrará las opciones para el Charset.\n\n"\
++ u"    ZipyBreak.py -A Arch.zip -C \"a-z\" -L 4.\n\n"
 
 
 
@@ -470,20 +470,19 @@ def Args():
 
 def Tiempo(sec):	# Convierte El Tiempo.
 	
-	sec = int(sec)
+	secs = int(sec)
+	mins = secs/60
+	hors = mins/60
+	dias = hors/24
 	
-	if sec >= 31449600:  # Convierte a Años
-		return "{:d} año(s)".format(int(sec / 31449600))
-	elif sec >= 604800:  # Convierte a Semanas
-		return "{:d} Semana(s)".format(int(sec / 604800))
-	elif sec >= 86400:  # Convierte a Dias
-		return "{:d} Dia(s)".format(int(sec / 86400))
+	if sec >= 86400:  # Convierte a Dias
+		return "{:d} Dia(s) {:d} hora(s) {:d} minuto(s) {:d} segundo(s)".format(dias, hors%24, mins%60, secs%60)
 	elif sec >= 3600:  # Convierte a Horas
-		return "{:d} hora(s)".format(int(sec / 3600))
+		return "{:d} hora(s) {:d} minuto(s) {:d} segundo(s)".format(hors, mins%24, secs%60)
 	elif sec >= 60:  # Convierte a Minutos
-		return "{:d} minuto(s)".format(int(sec / 60))
+		return "{:d} minuto(s) {:d} segundo(s)".format(mins, secs%60)
 	else:            # Sin Conversión
-		return "{:d} segundo(s)".format(int(sec))
+		return "{:d} segundo(s)".format(secs)
 
 
 
@@ -593,7 +592,7 @@ def main():
 					
 				except Exception:
 					
-					if Cont % 250 == 0:
+					if Cont % 300 == 0:
 						
 						if len(Pwd) < 8:
 							sys.stdout.writelines("\r  [+] Probando: " + Pwd + "\t\t[~] " + str(int(Cont/TiempoF)) + " Palabras/s. ")
