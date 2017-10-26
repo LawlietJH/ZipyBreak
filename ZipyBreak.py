@@ -8,7 +8,7 @@
 #  ███████╗██║██║        ██║   ██████╔╝██║  ██║███████╗██║  ██║██║  ██╗
 #  ╚══════╝╚═╝╚═╝        ╚═╝   ╚═════╝ ╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝
 #                                                         By: LawlietJH
-#                                                               v1.2.7
+#                                                               v1.2.8
 
 from time import time
 import zipfile
@@ -19,7 +19,7 @@ import os
 
 
 Autor = "LawlietJH"
-Version = "v1.2.7"
+Version = "v1.2.8"
 
 
 
@@ -512,6 +512,39 @@ def Tiempo(sec):	# Convierte El Tiempo.
 
 
 
+def ZipAtack(ZIP, Pwd, Cont, TI, TF, TT):
+	
+	try:
+		TF = time() - TI
+		TT = Tiempo(TF)
+		
+		if Cont % 300 == 0:
+			
+			if len(Pwd) < 8:
+				sys.stdout.writelines("\r  [+] Probando: " + Pwd + "\t\t[~] " + str(int(Cont/TF)) + " Palabras/s. En: " + str(TT))
+			elif len(Pwd) >= 8 or len(Pwd) < 16:
+				sys.stdout.writelines("\r  [+] Probando: " + Pwd + "\t[~] " + str(int(Cont/TF)) + " Palabras/s. En: " + str(TT))
+		
+		ZIP.extractall(pwd=Pwd)
+		
+		sys.stdout.writelines("\r  [+] Probando: " + Pwd + "\t\t[~] " + str(int(Cont/TF)) + " Palabras/s. En: " + str(TT))
+		
+		print u"\n\n\n\t [+] Password Descifrado: {}".format(Pwd) 
+		#~ print u"\n\n\t [+] Tomó {} para descifrar el Password.".format(TT)
+		print u"\n\n\t [+] Con {} Palabras Probadas.\n\n\n".format(Cont) 
+		sys.exit(0)
+		
+	except Exception:
+		
+		pass
+		
+	except KeyboardInterrupt:
+		
+		print "\n\n\t [!] Cancelado!"
+		sys.exit(0)
+
+
+
 #=======================================================================
 
 
@@ -533,10 +566,10 @@ def main():
 	Combin(L, C)
 	sys.stdout.writelines("\r Generando Palabras... HECHO!")
 	
-	#{ Genera Una Pausa de 1 Segundo.
-	z = time()
-	while z != (time() - 1): pass
-	#}
+	#~ #{ Genera Una Pausa de 1 Segundo.
+	#~ z = time()
+	#~ while z != (time() - 1): pass
+	#~ #}
 	
 	try:
 		
@@ -557,9 +590,10 @@ def main():
 	
 	Pwd = None
 	Cont = 0 
-	TiempoI = time()
-	TiempoF = 1
-	Tiempo_Total = None
+	
+	TI = time()
+	TF = 1
+	TT = None
 	
 	try:
 		
@@ -574,34 +608,7 @@ def main():
 					Cont += 1
 					Pwd = Palabra.split("\n")[0]
 					
-					try:
-						TiempoF = time() - TiempoI
-						Tiempo_Total = Tiempo(TiempoF)
-						
-						if Cont % 300 == 0:
-							
-							if len(Pwd) < 8:
-								sys.stdout.writelines("\r  [+] Probando: " + Pwd + "\t\t[~] " + str(int(Cont/TiempoF)) + " Palabras/s. En: " + str(Tiempo_Total))
-							elif len(Pwd) >= 8 or len(Pwd) < 16:
-								sys.stdout.writelines("\r  [+] Probando: " + Pwd + "\t[~] " + str(int(Cont/TiempoF)) + " Palabras/s. En: " + str(Tiempo_Total))
-						
-						ZIP.extractall(pwd=Pwd)
-						
-						sys.stdout.writelines("\r  [+] Probando: " + Pwd + "\t\t[~] " + str(int(Cont/TiempoF)) + " Palabras/s. En: " + str(Tiempo_Total))
-						
-						print u"\n\n\n\t [+] Password Descifrado: {}".format(Pwd) 
-						#~ print u"\n\n\t [+] Tomó {} para descifrar el Password.".format(Tiempo_Total)
-						print u"\n\n\t [+] Con {} Palabras Probadas.\n\n\n".format(Cont) 
-						sys.exit(0)
-						
-					except Exception:
-						
-						pass
-						
-					except KeyboardInterrupt:
-						
-						print "\n\n\t [!] Cancelado!"
-						sys.exit(0)
+					ZipAtack(ZIP, Pwd, Cont, TI, TF, TT)
 						
 				print "\n\n\n\t [!] Password No Encontrada."
 				print u"\n\n\t [+] Con {} Palabras Probadas.\n\n\n".format(Cont) 
@@ -609,37 +616,10 @@ def main():
 		else:
 			
 			for Palabra in Eny:
-
-				#~ print(Palabra)
 				
 				Cont += 1
-				Pwd = Palabra
 				
-				try:
-					TiempoF = time() - TiempoI
-					Tiempo_Total = Tiempo(TiempoF)
-						
-					if Cont % 300 == 0:
-						
-						if len(Pwd) < 8:
-							sys.stdout.writelines("\r  [+] Probando: " + Pwd + "\t\t[~] " + str(int(Cont/TiempoF)) + " Palabras/s. En: " + str(Tiempo_Total))
-						elif len(Pwd) >= 8 or len(Pwd) < 16:
-							sys.stdout.writelines("\r  [+] Probando: " + Pwd + "\t[~] " + str(int(Cont/TiempoF)) + " Palabras/s. En: " + str(Tiempo_Total))
-					
-					ZIP.extractall(pwd=Pwd)
-					
-					sys.stdout.writelines("\r  [+] Probando: " + Pwd + "\t\t[~] " + str(int(Cont/TiempoF)) + " Palabras/s. En: " + str(Tiempo_Total))
-						
-					print u"\n\n\n\t [+] Password Descifrado: {}".format(Pwd) 
-					print u"\n\n\t [+] Con {} Palabras Probadas.\n\n\n".format(Cont) 
-					sys.exit(0)
-					
-				except Exception: pass
-				
-				except KeyboardInterrupt:
-					
-					print "\n\n\t [!] Cancelado!"
-					sys.exit(0)
+				ZipAtack(ZIP, Palabra, Cont, TI, TF, TT)
 					
 			print "\n\n\n\t [!] Password No Encontrada."
 			print u"\n\n\t [+] Con {} Palabras Probadas.\n\n\n".format(Cont) 
