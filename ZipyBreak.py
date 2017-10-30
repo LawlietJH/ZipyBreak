@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 # Python 2.7
+# GitHub: https://github.com/LawlietJH/ZipyBreak
 #
 #  ███████╗██╗██████╗ ██╗   ██╗██████╗ ██████╗ ███████╗ █████╗ ██╗  ██╗
 #  ╚══███╔╝██║██╔══██╗╚██╗ ██╔╝██╔══██╗██╔══██╗██╔════╝██╔══██╗██║ ██╔╝
@@ -8,7 +9,7 @@
 #  ███████╗██║██║        ██║   ██████╔╝██║  ██║███████╗██║  ██║██║  ██╗
 #  ╚══════╝╚═╝╚═╝        ╚═╝   ╚═════╝ ╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝
 #                                                         By: LawlietJH
-#                                                               v1.2.8
+#                                                               v1.3.2
 
 from time import time
 import zipfile
@@ -19,7 +20,7 @@ import os
 
 
 Autor = "LawlietJH"
-Version = "v1.2.8"
+Version = "v1.3.2"
 
 
 
@@ -93,6 +94,7 @@ Longitud = 1
 Diccionario = ""
 xD = False
 Eny = []
+Cont = 0
 
 
 #=======================================================================
@@ -172,77 +174,81 @@ def ComandosRapidos():
 
 
 
-def Combin(L, C):	# Función Que Crea Las Cadenas Con Caracteres Desde 1 Hasta La Máximo Longitud Elegida.
+def Combin(L, C, ZIP, TI, TF, TT):	# Función Que Crea Las Cadenas Con Caracteres Desde 1 Hasta La Máximo Longitud Elegida.
+	
+	global Cont
+	
+	Cont = 0
 	
 	if L == 1:
 		
-		for _1 in C: Eny.append(_1)
+		for _1 in C: ZipAtack(ZIP, _1, TI, TF, TT)
 	
 	if L == 2:
 		
 		for _1 in C:
 			Eny.append(_1)
-			for _2 in C: _2 = _1 + _2; Eny.append(_2)
+			for _2 in C: _2 = _1 + _2; ZipAtack(ZIP, _2, TI, TF, TT)
 		
 	elif L == 3:
 		
 		for _1 in C:
-			Eny.append(_1)
+			ZipAtack(ZIP, _1, TI, TF, TT)
 			for _2 in C:
-				_2 = _1 + _2; Eny.append(_2)
-				for _3 in C: _3 = _2 + _3; Eny.append(_3)
+				_2 = _1 + _2; ZipAtack(ZIP, _2, TI, TF, TT)
+				for _3 in C: _3 = _2 + _3; ZipAtack(ZIP, _3, TI, TF, TT)
 			
 	elif L == 4:
 		
 		for _1 in C:
-			Eny.append(_1)
+			ZipAtack(ZIP, _1, TI, TF, TT)
 			for _2 in C:
-				_2 = _1 + _2; Eny.append(_2)
+				_2 = _1 + _2; ZipAtack(ZIP, _2, TI, TF, TT)
 				for _3 in C:
-					_3 = _2 + _3; Eny.append(_3)
-					for _4 in C: _4 = _3 + _4; Eny.append(_4)
+					_3 = _2 + _3; ZipAtack(ZIP, _3, TI, TF, TT)
+					for _4 in C: _4 = _3 + _4; ZipAtack(ZIP, _4, TI, TF, TT)
 				
 	elif L == 5:
 		
 		for _1 in C:
-			Eny.append(_1)
+			ZipAtack(ZIP, _1, TI, TF, TT)
 			for _2 in C:
-				_2 = _1 + _2; Eny.append(_2)
+				_2 = _1 + _2; ZipAtack(ZIP, _2, TI, TF, TT)
 				for _3 in C:
-					_3 = _2 + _3; Eny.append(_3)
+					_3 = _2 + _3; ZipAtack(ZIP, _3, TI, TF, TT)
 					for _4 in C:
-						_4 = _3 + _4; Eny.append(_4)
-						for _5 in C: _5 = _4 + _5; Eny.append(_5)
+						_4 = _3 + _4; ZipAtack(ZIP, _4, TI, TF, TT)
+						for _5 in C: _5 = _4 + _5; ZipAtack(ZIP, _5, TI, TF, TT)
 				
 	elif L == 6:
 		
 		for _1 in C:
-			Eny.append(_1)
+			ZipAtack(ZIP, _1, TI, TF, TT)
 			for _2 in C:
-				_2 = _1 + _2; Eny.append(_2)
+				_2 = _1 + _2; ZipAtack(ZIP, _2, TI, TF, TT)
 				for _3 in C:
-					_3 = _2 + _3; Eny.append(_3)
+					_3 = _2 + _3; ZipAtack(ZIP, _3, TI, TF, TT)
 					for _4 in C:
-						_4 = _3 + _4; Eny.append(_4)
+						_4 = _3 + _4; ZipAtack(ZIP, _4, TI, TF, TT)
 						for _5 in C:
-							_5 = _4 + _5; Eny.append(_5)
-							for _6 in C: _6 = _5 + _6; Eny.append(_6)
+							_5 = _4 + _5; ZipAtack(ZIP, _5, TI, TF, TT)
+							for _6 in C: _6 = _5 + _6; ZipAtack(ZIP, _6, TI, TF, TT)
 				
 	elif L == 7:
 		
 		for _1 in C:
-			Eny.append(_1)
+			ZipAtack(ZIP, _1, TI, TF, TT)
 			for _2 in C:
-				_2 = _1 + _2; Eny.append(_2)
+				_2 = _1 + _2; ZipAtack(ZIP, _2, TI, TF, TT)
 				for _3 in C:
-					_3 = _2 + _3; Eny.append(_3)
+					_3 = _2 + _3; ZipAtack(ZIP, _3, TI, TF, TT)
 					for _4 in C:
-						_4 = _3 + _4; Eny.append(_4)
+						_4 = _3 + _4; ZipAtack(ZIP, _4, TI, TF, TT)
 						for _5 in C:
-							_5 = _4 + _5; Eny.append(_5)
+							_5 = _4 + _5; ZipAtack(ZIP, _5, TI, TF, TT)
 							for _6 in C:
-								_6 = _5 + _6; Eny.append(_6)
-								for _7 in C: _7 = _6 + _7; Eny.append(_7)
+								_6 = _5 + _6; ZipAtack(ZIP, _6, TI, TF, TT)
+								for _7 in C: _7 = _6 + _7; ZipAtack(ZIP, _7, TI, TF, TT)
 
 
 
@@ -512,7 +518,10 @@ def Tiempo(sec):	# Convierte El Tiempo.
 
 
 
-def ZipAtack(ZIP, Pwd, Cont, TI, TF, TT):
+def ZipAtack(ZIP, Pwd, TI, TF, TT):
+	
+	global Cont
+	Cont += 1
 	
 	try:
 		TF = time() - TI
@@ -555,21 +564,10 @@ def main():
 	
 	Eny = []
 	A = Archivo
-	C = KeyGen(Charset)
-	C = EliminaRepetidas(C)
 	D = Diccionario
 	L = int(Longitud)
 	
 	print "\n\n\n"
-	
-	sys.stdout.writelines("\r Generando Palabras...")
-	Combin(L, C)
-	sys.stdout.writelines("\r Generando Palabras... HECHO!")
-	
-	#~ #{ Genera Una Pausa de 1 Segundo.
-	#~ z = time()
-	#~ while z != (time() - 1): pass
-	#~ #}
 	
 	try:
 		
@@ -591,10 +589,6 @@ def main():
 	Pwd = None
 	Cont = 0 
 	
-	TI = time()
-	TF = 1
-	TT = None
-	
 	try:
 		
 		if xD:
@@ -603,23 +597,35 @@ def main():
 				
 				Cadenas = Arch.readlines()
 				
+				TI = time()
+				TF = 1
+				TT = None
+				
 				for Palabra in Cadenas:
 					
-					Cont += 1
 					Pwd = Palabra.split("\n")[0]
 					
-					ZipAtack(ZIP, Pwd, Cont, TI, TF, TT)
-						
+					ZipAtack(ZIP, Pwd, TI, TF, TT)
+					
 				print "\n\n\n\t [!] Password No Encontrada."
 				print u"\n\n\t [+] Con {} Palabras Probadas.\n\n\n".format(Cont) 
 		
 		else:
 			
-			for Palabra in Eny:
+			C = KeyGen(Charset)
+			C = EliminaRepetidas(C)
+			
+			TI = time()
+			TF = 1
+			TT = None
+			
+			Combin(L, C, ZIP, TI, TF, TT)
+			
+			#~ for Palabra in Eny:
 				
-				Cont += 1
+				#~ Cont += 1
 				
-				ZipAtack(ZIP, Palabra, Cont, TI, TF, TT)
+				#~ ZipAtack(ZIP, Palabra, Cont, TI, TF, TT)
 					
 			print "\n\n\n\t [!] Password No Encontrada."
 			print u"\n\n\t [+] Con {} Palabras Probadas.\n\n\n".format(Cont) 
