@@ -1,5 +1,5 @@
 # ZipyBreak
-## Obten Contraseñas De Archivos Comrpimidos ZIP con Fuerza Bruta con Python.
+## Obtén Contraseñas De Archivos Comprimidos ZIP a Fuerza Bruta con Python.
 - - -
 
 * __Python 2.7__
